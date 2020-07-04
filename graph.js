@@ -18,6 +18,10 @@ const tree = d3.tree().size([dims.width, dims.height]);
 
 // update function
 const update = (data) => {
+  // remove current nodes
+  graph.selectAll('.node').remove();
+  graph.selectAll('.link').remove();
+
   // get updated root node data
   const rootNode = stratify(data);
   //   console.log(rootNode);
@@ -36,8 +40,6 @@ const update = (data) => {
   links
     .enter()
     .append('path')
-    .transition()
-    .duration(300)
     .attr('class', 'link')
     .attr('fill', 'none')
     .attr('stroke', '#aaa')
@@ -64,14 +66,19 @@ const update = (data) => {
     .attr('stroke', '#555')
     .attr('stroke-width', 2)
     .attr('height', 50)
-    .attr('width', (d) => d.data.name.length * 20);
+    .attr('width', (d) => d.data.name.length * 20)
+    .attr('transform', (d) => {
+      var x = d.data.name.length * 10;
+      return `translate(${-x}, -25)`;
+    });
 
   // append name text
   enterNodes
     .append('text')
     .attr('text-color', 'white')
     .attr('fill', 'white')
-    .text((d) => d.data.name);
+    .text((d) => d.data.name)
+    .attr('text-anchor', 'middle');
 };
 
 // data & firebase hook-up

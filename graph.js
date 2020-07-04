@@ -26,7 +26,7 @@ const update = (data) => {
   //   console.log(treeData);
 
   // get nodes selection and join data
-  const nodes = graph.selectAll('.node').data(treeData.decendants());
+  const nodes = graph.selectAll('.node').data(treeData.descendants());
 };
 
 // data & firebase hook-up
